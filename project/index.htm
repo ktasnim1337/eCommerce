@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<HTML>
+<head>
+
+    <style>
+        /* CSS comment - only block comments */
+    img {
+        width:15%;
+        height: auto;
+    }
+
+    input {
+        width: 50px;
+    }
+    #customerInfo{
+        background-color: aquamarine;
+        width: 15%;
+    }
+    #companyInfo{
+        background-color:lightcoral;
+        width: 15%;
+        
+    }
+    body{
+        background-color: pink;
+    }
+    h1{
+        text-align: center;
+        color: white; 
+    }
+    P {
+        background: lavender
+        
+    }
+    </style>
+    <style>
+        
+    </style>
+    <script>
+    var pr1 = 15,   wpr1 = 12;
+    var pr2 = 10,   wpr2 = 5;
+    var pr3 = 13,   wpr3 = 10;
+    var taxrate = 8.75;
+    function initialPrices () {
+        document.getElementById("span1").innterHTMl = "price: $"+ pr1;
+        document.getElementById("span2").innterHTMl = "price: $"+ pr2;
+        document.getElementById("span3").innterHTMl = "price: $"+ pr3;
+    }
+    function ProcessOrder() {
+        var Q1 = parseInt(document.getElementById("QYT1").value);
+        var Q2 = parseInt(document.getElementById("QYT2").value);
+        var Q3 = parseInt(document.getElementById("QYT3").value);
+        //calculation
+        var customer_subtotal = (pr1*Q1) + (pr2*Q2) + (pr3*Q3);
+        var comp_total = (wpr1*Q1) + (wpr2*Q2) + (wpr3*Q3);
+        var profit = customer_subtotal - comp_total;
+        var tax = customer_subtotal * (taxrate/100);
+        var shipping = 0;
+        //shipping
+        if (customer_subtotal <100){
+            shipping = 25;
+        }else if (customer_subtotal >=100 && customer_subtotal <=200 ){
+            shipping = 10;
+        }else shipping = 0;
+
+        var customer_total = customer_subtotal + tax + shipping;
+        var itemssold = Q1 + Q2 + Q3;
+        var op = document.getElementById("output");
+        var build = "" ;
+
+        build += "<div id='customerInfo'>" ;
+        build += "<pre>";
+        build += "~CUSTOMER ORDER DETAILS~ <br>";
+        build += "--------------------------<br>";
+        build += "Subtotal:                  $ " + customer_subtotal.toFixed(2) +"<br>";
+        build += "Tax                        $ " + tax.toFixed(2) + "<br>";
+        build += "Shipping & Handling        $ " + shipping.toFixed(2) + "<br>";
+        build += "Customer Total:            $ " + customer_total.toFixed(2) + "<br>";
+        build += "</div>";
+
+        build += "<br><hr>";
+        build += "<div id='companyInfo'>";
+        build += "<pre>";
+        build += "~COMPANY ORDER DETAILS~ <br>";
+        build += "--------------------------<br>";
+        build += "Total Items sold:           " + itemssold + "<br>";
+        build += "Customer Subtotal:        $ " + customer_subtotal.toFixed(2) + "<br>";
+        build += "Company Subtotal:         $ " + comp_total.toFixed(2) + "<br>";
+        build += "Profit/Loss:              $ " + profit.toFixed(2) + "<br>";
+        op.innerHTML = build;
+    }
+    </script>
+    <body onload= "initialPrices()">
+        <h1> THE TOY HOUSE </h1>
+        <!--Item 1-->
+        <div>
+            <img src= "lego.jpg"><br>
+            <p> LEGO City Starter Set </p><br>
+            <span id="span1"> </span>
+            <input type= "text" id="QYT1"  value = "0" placeholder= "Enter #">
+        </div>
+        <!--Item 2-->
+        <div>
+            <img src= "minnie.jpg"><br>
+            <p> 12" Minnie doll </p><br>
+            <span id="span2"> </span>
+            <input type= "text" id="QYT2" value = "0" placeholder= "Enter #">
+        </div>
+        <!--Item 1-->
+        <div>
+            <img src= "train.jpg"><br>
+            <p> Comes with a train and train tracks </p><br>
+            <span id="span3"> </span>
+            <input type= "text" id="QYT3" value = "0" placeholder= "Enter #">
+        </div>
+        <!--Payment Processing-->
+        <button onclick="ProcessOrder()"> Process Order </button>
+        <br>
+        <div id= "output"></div>
+        
+    </body>
+</head>
+
+
+</HTML>
